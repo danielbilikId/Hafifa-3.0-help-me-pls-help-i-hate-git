@@ -6,7 +6,7 @@ const app = express();
 app.use(helmet());
 
 app.get('/health', (req:Request, res:Response) => {
-  res.sendStatus(200);
+  res.send("I am alive!");
 });
+
 export default app;
-module.exports = app;

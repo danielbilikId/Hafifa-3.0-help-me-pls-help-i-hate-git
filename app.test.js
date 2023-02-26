@@ -1,8 +1,8 @@
-const request = require('supertest');
-const app = require("./app");
+import request from "supertest";
+import  app from "./app";
 
 describe('Test Healthy connection', () => {
     it('Test health:', () => {
-        request(app).get('/health').expect(200)
+        request(app).get('/health').expect(200);
     });
 });
