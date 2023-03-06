@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "test": "jest --collectCoverage",
+    "test": "jest --collectCoverage --forceExit",
     "start": "ts-node server.js"
   },
   "author": "",
