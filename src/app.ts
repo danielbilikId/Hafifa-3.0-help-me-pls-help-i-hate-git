@@ -1,11 +1,20 @@
-import bodyParser from 'body-parser'; 
+import bodyParser from 'body-parser';
 import helmet from 'helmet';
-import close,{ Express } from 'express';
-import router from '../routes/routes';
-const server = router
-const port = 3000
+import * as dotenv from 'dotenv';
+import router from './routes/routes';
+import logger from './logger';
+import { connectToMongoDB } from './repository/mongoConnect';
+
+dotenv.config();
+const server = router;
+const port = process.env.PORT;
+
 server.use(bodyParser);
-server.use(helmet);  
-server.listen(port, () => {
-  console.log(`Server shitting on port ${port}`);
+server.use(helmet);
+
+server.listen(port, async () => {
+  await connectToMongoDB();
+  logger.info(`Server listening on port ${port}`);
 });
+
+export default server;
