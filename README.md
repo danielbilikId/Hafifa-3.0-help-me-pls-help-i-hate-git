@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 29ea72b (source)
 # CRUD project to manage a DB of soldiers and duties.
 To run
 ```js
