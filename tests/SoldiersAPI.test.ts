@@ -1,6 +1,6 @@
 import request from 'supertest';
 import router from '../src/routes/routes';
-import * as soldiers from './testData';
+import * as soldiers from './soldierTestData';
 import { getDatabase, connectToMongoDB } from '../src/repository/mongoConnect';
 
 const app = router;
