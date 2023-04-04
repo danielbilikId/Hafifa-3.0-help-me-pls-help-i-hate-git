@@ -6,10 +6,6 @@
   "scripts": {
     "test": "jest --collectCoverage",
     "start": "ts-node src/app.ts"
-<<<<<<< HEAD
-=======
-
->>>>>>> 29ea72b (source)
   },
   "author": "",
   "license": "ISC",

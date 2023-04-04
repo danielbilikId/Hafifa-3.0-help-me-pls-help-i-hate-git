@@ -28,15 +28,7 @@ describe('Find Soldier By ID', () => {
 });
 
 describe('Search for Soldier by query in DB', () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
   it('Should Send an API Get Request and see if Soldier is in DB, Expected 200:', async () => {
-=======
-  it('Should Send an Get Request and see if Soldier is in DB, Expected 200:', async () => {
->>>>>>> 29ea72b (source)
-=======
-  it('Should Send an API Get Request and see if Soldier is in DB, Expected 200:', async () => {
->>>>>>> 998f373 (Duty Services)
     await getDatabase().collection('soldiers').deleteMany({});
     await getDatabase().collection('soldiers').insertOne(soldiers.SoldierToSearch);
     request(app).get(`/soldiers?name=${soldiers.SoldierToSearch.name}&rank=${soldiers.SoldierToSearch.rank}`).expect(soldiers.SoldierToSearch);
