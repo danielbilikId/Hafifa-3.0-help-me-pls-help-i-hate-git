@@ -12,7 +12,7 @@ const dutySchema = z.object({
   soldiersRequired: z.number(),
   value: z.number(),
   soldiers: z.array(z.string()).optional(),
-});
+}).strict();
 
 const dutySearchSchema = z.object({
   name: z.string().optional(),
@@ -25,4 +25,7 @@ const dutySearchSchema = z.object({
   soldiers: z.union([z.array(z.string()), z.string()]).optional(),
 }).strict();
 
-export { dutySchema, dutySearchSchema };
+const dutyUpdateSchema = z.object({
+  name: z.string().optional(),
+});
+export { dutySchema, dutySearchSchema, dutyUpdateSchema };

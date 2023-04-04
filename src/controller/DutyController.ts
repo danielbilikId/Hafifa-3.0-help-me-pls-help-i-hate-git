@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
-import { ObjectId } from 'mongodb';
-import logger from '../logger';
-import createDuty, { getDutiesById, getDutiesByQuery } from '../repository/dutyRepo';
-import { dutySearchSchema } from '../repository/dutySchemaValidation';
+import createDuty, {
+  updatebyId, getDutiesById, getDutiesByQuery, deleteDutybyId,
+} from '../repository/dutyRepo';
+import { dutySearchSchema, dutyUpdateSchema } from '../repository/dutySchemaValidation';
 
-export default async function insertDuty(req:Request, res:Response) {
-  try {
-    const savedDuty = await createDuty(req.body);
+export async function insertDuty(req:Request, res:Response) {
+  const savedDuty = await createDuty(req.body);
+  if (savedDuty !== null) {
     res.status(201).send(savedDuty);
-  } catch (err) {
+  } else {
     res.sendStatus(400);
   }
 }
@@ -27,11 +27,35 @@ export async function findDutyByQuery(req:Request, res:Response) {
   }
 }
 export async function findDutyByID(req:Request, res:Response) {
-  const { id } = req.params;
-  const soldierByID = await getDutiesById(id);
-  if (soldierByID == null) {
+  const dutiesById = await getDutiesById(req.params);
+  if (dutiesById == null) {
     res.send(404);
   } else {
-    res.status(200).send(soldierByID);
+    res.status(200).send(dutiesById);
+  }
+}
+export async function deleteDuty(req:Request, res:Response) {
+  const dutiesById = await getDutiesById(req.params);
+  if (dutiesById == null) {
+    res.send(404);
+  } else if (dutiesById.soldiers.length !== 0) {
+    res.send(404);
+  } else {
+    await deleteDutybyId(req.params);
+    res.send('soldier deleted!');
+  }
+}
+
+export async function updateDuty(req:Request, res:Response) {
+  const dutiesById = await getDutiesById(req.params);
+  if (dutiesById == null) {
+    res.send(404);
+  } else if (dutiesById.soldiers.length !== 0) {
+    res.send('scheduled duty');
+  } else {
+    dutyUpdateSchema.parse(req.body);
+    await updatebyId(req.params, req.body);
+    const updatedDutybyId = await getDutiesById(req.params);
+    res.send(updatedDutybyId);
   }
 }
